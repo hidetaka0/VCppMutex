@@ -15,17 +15,19 @@ public:
 
 	~Mutex()
 	{
-		//終了
+		//クローズ
 		CloseHandle(g_hMutex);
 	}
 
+	//ロック
 	void Lock()
 	{
-		WaitForSingleObject(g_hMutex, INFINITE);//ロック
+		WaitForSingleObject(g_hMutex, INFINITE);
 	}
+	//アンロック
 	void Unlock()
 	{
-		ReleaseMutex(g_hMutex);//アンロック
+		ReleaseMutex(g_hMutex);
 	}
 };
 
@@ -38,11 +40,11 @@ public:
 	MutexLockGuard(Mutex * mutex)
 	{
 		g_Mutex = mutex;
-		g_Mutex->Lock();//ロック
+		g_Mutex->Lock();
 	}
 
 	~MutexLockGuard()
 	{
-		g_Mutex->Unlock();//ロック
+		g_Mutex->Unlock();
 	}
 };
